@@ -34,7 +34,11 @@ const marketsReducer = (state=initialState, action) => {
 
   function recalculatePercentages(totalCards) {
     marketList.forEach(currentMarket => {
-      currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+      if (totalCards === 0) {
+        currentMarket.percentOfTotals = 0;
+      } else {
+        currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+      }
     });
   }
 
@@ -74,11 +78,11 @@ const marketsReducer = (state=initialState, action) => {
     case types.ADD_CARD:
       marketList = state.marketList.slice();
 
-      const market = findMarket();
+      let market = findMarket();
       market.cards += 1
 
-      const totalCards = state.totalCards + 1;
-      
+      let totalCards = state.totalCards + 1;
+
       recalculatePercentages(totalCards);
 
       return {
@@ -88,7 +92,28 @@ const marketsReducer = (state=initialState, action) => {
       }
 
     case types.DELETE_CARD:
-    console.log('deleting card')
+      marketList = state.marketList.slice();
+
+      market = findMarket();
+      if (market.cards > 0) {
+        market.cards -= 1
+
+        if (state.totalCards > 0) {
+          totalCards = state.totalCards - 1;
+
+          recalculatePercentages(totalCards);
+        }
+      }
+
+      if (totalCards === undefined) {
+        totalCards = state.totalCards;
+      }
+
+      return {
+        ...state,
+        totalCards: totalCards,
+        marketList: marketList
+      }
 
     default:
       return state;
