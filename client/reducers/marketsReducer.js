@@ -97,12 +97,9 @@ const marketsReducer = (state=initialState, action) => {
       market = findMarket();
       if (market.cards > 0) {
         market.cards -= 1
+        totalCards = state.totalCards - 1;
 
-        if (state.totalCards > 0) {
-          totalCards = state.totalCards - 1;
-
-          recalculatePercentages(totalCards);
-        }
+        recalculatePercentages(totalCards);
       }
 
       if (totalCards === undefined) {
