@@ -18,3 +18,17 @@ export const addCard = (marketId) => ({
 });
 
 // add more action creators
+export const setNewLocation = (location) => ({
+  type: types.SET_NEW_LOCATION,
+  payload: location,
+});
+
+export const addMarket = () => ({
+  type: types.ADD_MARKET,
+  payload: null,
+});
+
+export const deleteCard = (marketId) => ({
+  type: types.DELETE_CARD,
+  payload: marketId,
+});
