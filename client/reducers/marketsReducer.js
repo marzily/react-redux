@@ -66,13 +66,20 @@ const marketsReducer = (state=initialState, action) => {
         }
       }
 
+      function recalculatePercentages() {
+        marketList.forEach(currentMarket => {
+          currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+        });
+      }
+
       marketList = state.marketList.slice();
-      console.log(marketList);
+
       const market = findMarket();
       market.cards += 1
 
       const totalCards = state.totalCards + 1;
-      market.percentOfTotals = (market.cards / totalCards) * 100;
+
+      recalculatePercentages();
 
       return {
         ...state,
