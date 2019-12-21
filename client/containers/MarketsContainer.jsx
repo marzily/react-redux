@@ -36,6 +36,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addCard: (marketId) => {
     dispatch(actions.addCard(marketId));
+  },
+  deleteCard: (marketId) => {
+    dispatch(actions.deleteCard(marketId));
   }
 });
 
@@ -56,6 +59,7 @@ class MarketsContainer extends Component {
         <MarketsDisplay
           marketList={this.props.marketList}
           addCard={this.props.addCard}
+          deleteCard={this.props.deleteCard}
         />
       </div>
     );

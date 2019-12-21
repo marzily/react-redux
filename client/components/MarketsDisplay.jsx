@@ -16,8 +16,13 @@ import MarketDisplay from './MarketDisplay.jsx';
 const MarketsDisplay = (props) => {
 
   const marketComponents = props.marketList.map((market, i) => {
-    return <MarketDisplay key={i} market={market} addCard={props.addCard}/>;
-  })
+    return <MarketDisplay
+            key={i}
+            market={market}
+            addCard={props.addCard}
+            deleteCard={props.deleteCard}
+          />;
+  });
 
   return(
     <div className="displayBox">

@@ -22,6 +22,22 @@ const initialState = {
 const marketsReducer = (state=initialState, action) => {
   let marketList;
 
+  function findMarket() {
+    for (let i = 0; i < marketList.length; i++){
+      let currentMarket = marketList[i];
+
+      if (currentMarket.marketId === action.payload) {
+        return currentMarket;
+      }
+    }
+  }
+
+  function recalculatePercentages(totalCards) {
+    marketList.forEach(currentMarket => {
+      currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+    });
+  }
+
   switch (action.type) {
     case types.ADD_MARKET:
       // increment lastMarketId and totalMarkets counters
@@ -56,30 +72,14 @@ const marketsReducer = (state=initialState, action) => {
       }
 
     case types.ADD_CARD:
-      function findMarket() {
-        for (let i = 0; i < marketList.length; i++){
-          let currentMarket = marketList[i];
-
-          if (currentMarket.marketId === action.payload) {
-            return currentMarket;
-          }
-        }
-      }
-
-      function recalculatePercentages() {
-        marketList.forEach(currentMarket => {
-          currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
-        });
-      }
-
       marketList = state.marketList.slice();
 
       const market = findMarket();
       market.cards += 1
 
       const totalCards = state.totalCards + 1;
-
-      recalculatePercentages();
+      
+      recalculatePercentages(totalCards);
 
       return {
         ...state,
@@ -88,7 +88,7 @@ const marketsReducer = (state=initialState, action) => {
       }
 
     case types.DELETE_CARD:
-
+    console.log('deleting card')
 
     default:
       return state;

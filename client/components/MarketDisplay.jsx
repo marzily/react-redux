@@ -18,7 +18,7 @@ const MarketDisplay = (props) => (
     <p>Cards: {props.market.cards}</p>
     <p>% of Total: {props.market.percentOfTotals}</p>
     <button onClick={() => props.addCard(props.market.marketId)}>Add Card</button>
-    <button>Delete Card</button>
+    <button onClick={() => props.deleteCard(props.market.marketId)}>Delete Card</button>
   </div>
 );
 
