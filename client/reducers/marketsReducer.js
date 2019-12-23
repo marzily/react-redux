@@ -22,26 +22,6 @@ const initialState = {
 const marketsReducer = (state=initialState, action) => {
   let marketList;
 
-  function findMarket() {
-    for (let i = 0; i < marketList.length; i++){
-      let currentMarket = marketList[i];
-
-      if (currentMarket.marketId === action.payload) {
-        return currentMarket;
-      }
-    }
-  }
-
-  function recalculatePercentages(totalCards) {
-    marketList.forEach(currentMarket => {
-      if (totalCards === 0) {
-        currentMarket.percentOfTotals = 0;
-      } else {
-        currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
-      }
-    });
-  }
-
   switch (action.type) {
     case types.ADD_MARKET:
       // increment lastMarketId and totalMarkets counters
@@ -57,7 +37,7 @@ const marketsReducer = (state=initialState, action) => {
       };
 
       // push the new market onto a copy of the market list
-      marketList = state.marketList.slice();
+      marketList = deepCopy(state.marketList);
       marketList.push(newMarket);
 
       // return updated state
@@ -76,45 +56,65 @@ const marketsReducer = (state=initialState, action) => {
       }
 
     case types.ADD_CARD:
-      marketList = state.marketList.slice();
+      marketList = deepCopy(state.marketList);
 
-      let market = findMarket();
+      let market = findMarket(marketList, action.payload);
+
       market.cards += 1
-
       let totalCards = state.totalCards + 1;
 
-      recalculatePercentages(totalCards);
+      marketList = recalculatePercentages(marketList, totalCards);
 
       return {
         ...state,
-        totalCards: totalCards,
-        marketList: marketList
+        totalCards,
+        marketList
       }
 
     case types.DELETE_CARD:
-      marketList = state.marketList.slice();
+      marketList = deepCopy(state.marketList);
 
-      market = findMarket();
+      market = findMarket(marketList, action.payload);
       if (market.cards > 0) {
         market.cards -= 1
         totalCards = state.totalCards - 1;
 
-        recalculatePercentages(totalCards);
-      }
-
-      if (totalCards === undefined) {
+        marketList = recalculatePercentages(marketList, totalCards);
+      } else {
         totalCards = state.totalCards;
       }
 
       return {
         ...state,
-        totalCards: totalCards,
-        marketList: marketList
+        totalCards,
+        marketList
       }
 
     default:
       return state;
   }
 };
+
+function deepCopy(marketList) {
+  return marketList.map(market => {
+    return {...market};
+  });
+}
+
+function findMarket(marketList, marketId) {
+  return marketList.filter(market => market.marketId === marketId)[0];
+}
+
+function recalculatePercentages(marketList, totalCards) {
+  marketList.forEach(currentMarket => {
+    if (totalCards === 0) {
+      currentMarket.percentOfTotals = 0;
+    } else {
+      currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+    }
+  });
+
+  return marketList;
+}
 
 export default marketsReducer;
