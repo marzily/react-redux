@@ -15,11 +15,11 @@ const MarketCreator = props => (
   // how do we create the circuit between the store and an input field?
   // how do we update the store from a presentation component?
   <div>
-    <h3>Create New Market</h3>
+    <h4>Create New Market</h4>
     <div>
       <form>
         <label>Location:</label> <input type="text" value={props.newLocation} onChange={props.setNewLocation}/>
-        <input type="submit" value="Add Market" onClick={props.addMarket}/>
+        <button type="submit" onClick={props.addMarket}>Add Market</button>
       </form>
     </div>
   </div>
