@@ -110,7 +110,7 @@ function recalculatePercentages(marketList, totalCards) {
     if (totalCards === 0) {
       currentMarket.percentOfTotals = 0;
     } else {
-      currentMarket.percentOfTotals = (currentMarket.cards / totalCards) * 100;
+      currentMarket.percentOfTotals = ((currentMarket.cards / totalCards) * 100).toFixed(2);
     }
   });
 

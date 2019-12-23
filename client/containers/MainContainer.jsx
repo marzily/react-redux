@@ -22,10 +22,6 @@ const mapStateToProps = store => ({
   totalMarkets: store.markets.totalMarkets
 });
 
-const mapDispatchToProps = dispatch => ({
-
-});
-
 class MainContainer extends Component {
   constructor(props) {
     super(props);
@@ -48,4 +44,4 @@ class MainContainer extends Component {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default connect(mapStateToProps, null)(MainContainer);
