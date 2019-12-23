@@ -18,7 +18,7 @@ const MarketCreator = props => (
     <h3>Create New Market</h3>
     <div>
       <form>
-        Location: <input type="text" value={props.newLocation} onChange={props.setNewLocation}/>
+        <label>Location:</label> <input type="text" value={props.newLocation} onChange={props.setNewLocation}/>
         <input type="submit" value="Add Market" onClick={props.addMarket}/>
       </form>
     </div>

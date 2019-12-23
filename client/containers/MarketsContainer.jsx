@@ -19,8 +19,6 @@ import MarketsDisplay from '../components/MarketsDisplay.jsx'
 
 const mapStateToProps = store => ({
   // provide pertinent state here
-  // new location
-  // marketList
   newLocation: store.markets.newLocation,
   marketList: store.markets.marketList
 });
