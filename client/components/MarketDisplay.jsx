@@ -13,12 +13,17 @@ import React from 'react';
 
 const MarketDisplay = (props) => (
   <div className="marketBox">
-    <p><label>Market ID:</label> {props.market.marketId}</p>
-    <p><label>Location:</label> {props.market.location}</p>
-    <p><label>Cards:</label> {props.market.cards}</p>
-    <p><label>% of Total:</label> {props.market.percentOfTotals}</p>
-    <button onClick={() => props.addCard(props.market.marketId)}>Add Card</button>
-    <button onClick={() => props.deleteCard(props.market.marketId)}>Delete Card</button>
+    <ul>
+      <li><label>Market ID:</label> {props.market.marketId}</li>
+      <li><label>Location:</label> {props.market.location}</li>
+      <li><label>Cards:</label> {props.market.cards}</li>
+      <li><label>% of Total:</label> {props.market.percentOfTotals}</li>
+
+      <li>
+        <button onClick={() => props.addCard(props.market.marketId)}>Add Card</button>
+        <button onClick={() => props.deleteCard(props.market.marketId)}>Delete Card</button>
+      </li>
+    </ul>
   </div>
 );
 

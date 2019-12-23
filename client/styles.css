@@ -62,3 +62,8 @@ button {
     padding: 3px;
     margin: 3px;
 }
+
+ul {
+  display: inline-block;
+  list-style-type: none;
+}
